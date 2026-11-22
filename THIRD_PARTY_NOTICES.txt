@@ -1,0 +1,6 @@
+EmulatorJS
+Project: https://github.com/EmulatorJS/EmulatorJS
+License: GNU General Public License v3.0 (GPL-3.0)
+EmulatorJS is loaded from the official stable CDN at runtime. Its source and license are available from the project repository.
+
+NEXUS does not include copyrighted game ROMs or BIOS files. Use only game files you are legally entitled to use.

@@ -1,0 +1,2085 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXUS — Your Digital Universe</title>
+
+<style>
+:root {
+    --bg:#08070D;
+    --panel:#171020;
+    --panel2:#21152F;
+    --purple:#8B5CF6;
+    --glow:#C4A5FF;
+    --text:#F4EEFF;
+    --muted:#A99BB9;
+    --border:#352344;
+    --green:#6EE7B7;
+}
+
+* {box-sizing:border-box}
+
+body {
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    min-height:100vh;
+}
+
+button,input,textarea,select {font:inherit}
+button {cursor:pointer}
+
+header {
+    position:sticky;
+    top:0;
+    z-index:10;
+    background:rgba(8,7,13,.97);
+    border-bottom:1px solid var(--border);
+    padding:15px 4%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.logo {
+    font-size:27px;
+    font-weight:bold;
+    letter-spacing:3px;
+    color:var(--glow);
+    text-shadow:0 0 14px var(--purple);
+}
+
+.logo span {color:white}
+
+nav {
+    display:flex;
+    flex-wrap:wrap;
+    gap:7px;
+}
+
+nav button,.btn {
+    border:1px solid var(--border);
+    background:var(--panel);
+    color:var(--muted);
+    padding:10px 13px;
+    border-radius:8px;
+    transition:.2s;
+}
+
+nav button:hover,.btn:hover,
+nav button.active {
+    color:white;
+    border-color:var(--glow);
+    background:#351D4F;
+    box-shadow:0 0 12px var(--purple);
+}
+
+.container {
+    width:min(1200px,92%);
+    margin:30px auto;
+}
+
+.page-section {display:none;animation:fade .25s ease}
+.page-section.active {display:block}
+
+@keyframes fade {
+    from {opacity:0;transform:translateY(7px)}
+    to {opacity:1;transform:translateY(0)}
+}
+
+h1 {font-size:34px;margin:0 0 10px}
+h2 {margin-top:0}
+h3 {margin-top:0}
+p {color:var(--muted);line-height:1.6}
+
+.subtitle {
+    color:var(--muted);
+    margin-bottom:25px;
+}
+
+.grid {
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:16px;
+}
+
+.card {
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:13px;
+    padding:20px;
+    transition:.2s;
+}
+
+.card:hover {
+    border-color:var(--purple);
+    box-shadow:0 0 15px rgba(139,92,246,.16);
+}
+
+.card h3 {margin-bottom:9px}
+
+.big-time {
+    font-size:43px;
+    font-weight:bold;
+    color:var(--glow);
+    text-shadow:0 0 15px var(--purple);
+}
+
+.big-date {color:var(--muted);margin-top:8px}
+
+.stat {
+    font-size:27px;
+    color:var(--glow);
+    font-weight:bold;
+}
+
+.section-title {
+    margin:30px 0 15px;
+    color:var(--glow);
+    font-size:19px;
+}
+
+button.primary {
+    background:var(--purple);
+    color:white;
+    border:1px solid var(--glow);
+    padding:10px 15px;
+    border-radius:8px;
+}
+
+button.danger {
+    background:#49202D;
+    color:#FFC4CF;
+    border:1px solid #9F405B;
+    padding:9px 12px;
+    border-radius:8px;
+}
+
+button.small {padding:7px 10px;font-size:12px}
+
+input,textarea,select {
+    width:100%;
+    padding:11px;
+    background:#0D0A13;
+    color:var(--text);
+    border:1px solid var(--border);
+    border-radius:8px;
+    outline:none;
+    margin:6px 0 12px;
+}
+
+input:focus,textarea:focus,select:focus {
+    border-color:var(--glow);
+    box-shadow:0 0 8px rgba(139,92,246,.25);
+}
+
+textarea {resize:vertical;min-height:110px}
+
+label {color:var(--muted);font-size:13px}
+
+.row {
+    display:flex;
+    gap:9px;
+    flex-wrap:wrap;
+    align-items:center;
+}
+
+.row > * {flex:1}
+
+.output {
+    background:#0D0A13;
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:13px;
+    min-height:42px;
+    overflow-wrap:anywhere;
+    margin:8px 0;
+}
+
+.muted {color:var(--muted)}
+.purple {color:var(--glow)}
+.green {color:var(--green)}
+
+.tool-buttons {
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:8px;
+}
+
+.tool-buttons button {
+    padding:14px 5px;
+    border-radius:8px;
+    background:var(--panel2);
+    color:white;
+    border:1px solid var(--border);
+}
+
+.tool-buttons button:hover {
+    border-color:var(--glow);
+    background:#43265E;
+}
+
+.calc-display {
+    font-size:25px;
+    text-align:right;
+    min-height:55px;
+}
+
+.list-item {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    padding:11px;
+    border-bottom:1px solid var(--border);
+}
+
+.list-item:last-child {border-bottom:none}
+.done {text-decoration:line-through;opacity:.5}
+
+.color-box {
+    width:100%;
+    height:75px;
+    border-radius:9px;
+    border:1px solid var(--border);
+}
+
+iframe {
+    width:100%;
+    height:280px;
+    border:1px solid var(--border);
+    border-radius:9px;
+    background:white;
+}
+
+pre {
+    white-space:pre-wrap;
+    overflow-wrap:anywhere;
+    color:var(--green);
+}
+
+/* NEW TOOL LAUNCHER */
+
+.tool-launcher {
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+    gap:15px;
+}
+
+.tool-launch-card {
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:13px;
+    padding:22px 18px;
+    text-align:left;
+    color:var(--text);
+    transition:.2s;
+    min-height:125px;
+}
+
+.tool-launch-card:hover {
+    border-color:var(--glow);
+    background:#241533;
+    box-shadow:0 0 16px rgba(139,92,246,.25);
+    transform:translateY(-3px);
+}
+
+.tool-icon {
+    font-size:29px;
+    display:block;
+    margin-bottom:12px;
+}
+
+.tool-name {
+    font-weight:bold;
+    font-size:16px;
+    display:block;
+}
+
+.tool-description {
+    font-size:12px;
+    color:var(--muted);
+    display:block;
+    margin-top:7px;
+    line-height:1.5;
+}
+
+.tool-view {display:none}
+.tool-view.active {display:block;animation:fade .2s ease}
+
+.back-button {
+    margin-bottom:20px;
+}
+
+footer {
+    border-top:1px solid var(--border);
+    padding:25px;
+    text-align:center;
+    color:var(--muted);
+    margin-top:50px;
+}
+
+.compact .card {padding:12px}
+.compact .container {margin-top:18px}
+
+@media(max-width:650px) {
+    header {justify-content:center}
+    nav {justify-content:center}
+    h1 {font-size:27px}
+    .big-time {font-size:34px}
+}
+
+/* NEXUS ARCADE — EmulatorJS player */
+.arcade-shell{margin:18px 0 26px;padding:20px;background:linear-gradient(145deg,#171020,#100b18);border:1px solid var(--border);border-radius:15px;box-shadow:0 0 18px rgba(139,92,246,.10)}
+.arcade-shell:hover{border-color:var(--purple)}
+.arcade-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.arcade-badge{display:inline-block;padding:5px 9px;border:1px solid #60408a;border-radius:20px;color:var(--glow);font-size:11px;letter-spacing:.7px}
+.arcade-stage{margin:16px auto 12px;min-height:220px;display:flex;align-items:center;justify-content:center;background:#050408;border:1px solid #38264b;border-radius:12px;padding:16px;overflow:hidden}
+.arcade-stage canvas{display:block;width:min(100%,720px);height:auto;max-height:68vh;object-fit:contain;image-rendering:pixelated;background:#000}
+.arcade-stage iframe{display:block;width:100%;height:min(70vh,620px);min-height:420px;border:0;border-radius:8px;background:#000}
+.arcade-placeholder{text-align:center;color:var(--muted);max-width:460px;line-height:1.7}
+.arcade-actions{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
+.arcade-actions button{flex:0 0 auto}
+.arcade-status{padding:11px 13px;background:#0d0a13;border:1px solid var(--border);border-radius:8px;color:var(--muted);font-size:13px;line-height:1.5;margin-top:12px;overflow-wrap:anywhere}
+.arcade-status.good{color:#8cf0c4;border-color:#28694f}.arcade-status.bad{color:#ffb7c4;border-color:#7d3446}
+.arcade-keys{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:7px;margin-top:12px}
+.arcade-keys span{font-size:12px;color:var(--muted);padding:7px 9px;background:#100c17;border:1px solid #30213f;border-radius:7px}
+.arcade-keys b{color:var(--glow)}
+.arcade-controlbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:10px 0 4px;padding:11px 12px;background:#100c17;border:1px solid #38264b;border-radius:9px}
+.arcade-controlbar .arcade-small{flex:1 1 220px}
+.arcade-fastforward[aria-pressed="true"]{background:#6d28d9;box-shadow:0 0 16px rgba(167,112,255,.5);border:1px solid #c4a5ff}
+.arcade-small{font-size:12px;color:var(--muted);line-height:1.55}
+.arcade-file{max-width:100%;padding:9px}
+.arcade-shell button:disabled{opacity:.45;cursor:not-allowed}
+@media(max-width:650px){.arcade-shell{padding:14px}.arcade-stage{min-height:160px;padding:8px}}
+
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">NEXUS<span>.</span></div>
+
+    <nav>
+        <button class="active" data-page="home">Home</button>
+        <button data-page="tools">Tools</button>
+        <button data-page="developer">Developer</button>
+        <button data-page="productivity">Productivity</button>
+        <button data-page="gaming">Gaming</button>
+        <button data-page="about">About</button>
+        <button data-page="settings">Settings</button>
+    </nav>
+</header>
+
+<main class="container">
+
+<!-- HOME -->
+<section id="home" class="page-section active">
+
+    <h1>Welcome to <span class="purple">NEXUS.</span></h1>
+    <p class="subtitle">Your Digital Universe. One place. Endless possibilities.</p>
+
+    <div class="card">
+        <div class="big-time" id="clock">00:00:00</div>
+        <div class="big-date" id="date">Loading date...</div>
+        <p id="greeting">Welcome back.</p>
+    </div>
+
+    <h2 class="section-title">Your Command Centre</h2>
+
+    <div class="grid">
+        <div class="card">
+            <h3>🧰 Tools</h3>
+            <p>Calculator, timer, stopwatch, converters and more.</p>
+            <button class="primary" data-page="tools">Open Tools</button>
+        </div>
+
+        <div class="card">
+            <h3>💻 Developer Zone</h3>
+            <p>Experiment with HTML, CSS and JavaScript.</p>
+            <button class="primary" data-page="developer">Start Coding</button>
+        </div>
+
+        <div class="card">
+            <h3>📚 Productivity</h3>
+            <p>Organize tasks, study sessions and personal notes.</p>
+            <button class="primary" data-page="productivity">Get Organized</button>
+        </div>
+
+        <div class="card">
+            <h3>🎮 Gaming Zone</h3>
+            <p>Manage your personal game collection.</p>
+            <button class="primary" data-page="gaming">Enter Gaming</button>
+        </div>
+    </div>
+
+    <h2 class="section-title">Quick Statistics</h2>
+
+    <div class="grid">
+        <div class="card">
+            <p>Saved Notes</p>
+            <div class="stat" id="noteCount">0</div>
+        </div>
+        <div class="card">
+            <p>Pending Tasks</p>
+            <div class="stat" id="taskCount">0</div>
+        </div>
+        <div class="card">
+            <p>Games in Library</p>
+            <div class="stat" id="gameCount">0</div>
+        </div>
+    </div>
+
+    <h2 class="section-title">Quick Launch</h2>
+
+    <div class="grid">
+        <button class="btn" onclick="launchTool('calculator')">🧮 Calculator</button>
+        <button class="btn" onclick="launchTool('stopwatch')">⏱ Stopwatch</button>
+        <button class="btn" onclick="showPage('productivity')">✅ My Tasks</button>
+        <button class="btn" onclick="showPage('developer')">⌨ Code Editor</button>
+    </div>
+</section>
+
+
+<!-- TOOLS -->
+<section id="tools" class="page-section">
+
+    <div id="toolLauncher">
+        <h1>🧰 NEXUS Tools</h1>
+        <p class="subtitle">Choose a tool to launch.</p>
+
+        <div class="tool-launcher">
+
+            <button class="tool-launch-card" onclick="openNexusTool('calculator')">
+                <span class="tool-icon">🧮</span>
+                <span class="tool-name">Calculator</span>
+                <span class="tool-description">Perform everyday calculations.</span>
+            </button>
+
+            <button class="tool-launch-card" onclick="openNexusTool('stopwatch')">
+                <span class="tool-icon">⏱</span>
+                <span class="tool-name">Stopwatch</span>
+                <span class="tool-description">Measure elapsed time.</span>
+            </button>
+
+            <button class="tool-launch-card" onclick="openNexusTool('timer')">
+                <span class="tool-icon">⏳</span>
+                <span class="tool-name">Countdown Timer</span>
+                <span class="tool-description">Set a countdown.</span>
+            </button>
+
+            <button class="tool-launch-card" onclick="openNexusTool('converter')">
+                <span class="tool-icon">🔄</span>
+                <span class="tool-name">Unit Converter</span>
+                <span class="tool-description">Convert common measurements.</span>
+            </button>
+
+            <button class="tool-launch-card" onclick="openNexusTool('wordcounter')">
+                <span class="tool-icon">🔤</span>
+                <span class="tool-name">Word Counter</span>
+                <span class="tool-description">Count words and characters.</span>
+            </button>
+
+            <button class="tool-launch-card" onclick="openNexusTool('colorpicker')">
+                <span class="tool-icon">🎨</span>
+                <span class="tool-name">Colour Picker</span>
+                <span class="tool-description">Choose and copy colour codes.</span>
+            </button>
+
+            <button class="tool-launch-card" onclick="openNexusTool('password')">
+                <span class="tool-icon">🔐</span>
+                <span class="tool-name">Password Generator</span>
+                <span class="tool-description">Generate random passwords.</span>
+            </button>
+
+            <button class="tool-launch-card" onclick="openNexusTool('calendar')">
+                <span class="tool-icon">📅</span>
+                <span class="tool-name">Calendar</span>
+                <span class="tool-description">View dates and months.</span>
+            </button>
+
+        </div>
+    </div>
+
+
+    <!-- CALCULATOR VIEW -->
+    <div class="tool-view" id="view-calculator">
+        <button class="btn back-button" onclick="backToTools()">← Back to Tools</button>
+
+        <div class="card">
+            <h2>🧮 Calculator</h2>
+            <input id="calcDisplay" class="calc-display" value="0" readonly>
+
+            <div class="tool-buttons">
+                <button onclick="calcClear()">C</button>
+                <button onclick="calcDelete()">DEL</button>
+                <button onclick="calcAdd('%')">%</button>
+                <button onclick="calcAdd('/')">÷</button>
+
+                <button onclick="calcAdd('7')">7</button>
+                <button onclick="calcAdd('8')">8</button>
+                <button onclick="calcAdd('9')">9</button>
+                <button onclick="calcAdd('*')">×</button>
+
+                <button onclick="calcAdd('4')">4</button>
+                <button onclick="calcAdd('5')">5</button>
+                <button onclick="calcAdd('6')">6</button>
+                <button onclick="calcAdd('-')">−</button>
+
+                <button onclick="calcAdd('1')">1</button>
+                <button onclick="calcAdd('2')">2</button>
+                <button onclick="calcAdd('3')">3</button>
+                <button onclick="calcAdd('+')">+</button>
+
+                <button onclick="calcAdd('(')">(</button>
+                <button onclick="calcAdd('0')">0</button>
+                <button onclick="calcAdd('.')">.</button>
+                <button onclick="calculate()">=</button>
+            </div>
+
+            <p class="muted">Keyboard: numbers, operators, Enter, Backspace and Escape.</p>
+        </div>
+    </div>
+
+
+    <!-- STOPWATCH VIEW -->
+    <div class="tool-view" id="view-stopwatch">
+        <button class="btn back-button" onclick="backToTools()">← Back to Tools</button>
+
+        <div class="card">
+            <h2>⏱ Stopwatch</h2>
+            <div class="big-time" id="stopwatchDisplay">00:00.00</div>
+
+            <div class="row">
+                <button class="primary" onclick="startStopwatch()">Start</button>
+                <button class="btn" onclick="pauseStopwatch()">Pause</button>
+                <button class="danger" onclick="resetStopwatch()">Reset</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- TIMER VIEW -->
+    <div class="tool-view" id="view-timer">
+        <button class="btn back-button" onclick="backToTools()">← Back to Tools</button>
+
+        <div class="card">
+            <h2>⏳ Countdown Timer</h2>
+            <input type="number" id="timerMinutes" placeholder="Minutes" min="0">
+            <input type="number" id="timerSeconds" placeholder="Seconds" min="0" max="59">
+
+            <div class="big-time" id="timerDisplay">00:00</div>
+
+            <div class="row">
+                <button class="primary" onclick="startTimer()">Start</button>
+                <button class="danger" onclick="resetTimer()">Reset</button>
+            </div>
+            <p id="timerStatus" class="muted">Ready.</p>
+        </div>
+    </div>
+
+
+    <!-- CONVERTER VIEW -->
+    <div class="tool-view" id="view-converter">
+        <button class="btn back-button" onclick="backToTools()">← Back to Tools</button>
+
+        <div class="card">
+            <h2>🔄 Unit Converter</h2>
+            <label>Value</label>
+            <input type="number" id="unitValue" placeholder="Enter value">
+
+            <label>Conversion</label>
+            <select id="unitType">
+                <option value="km-mi">Kilometres → Miles</option>
+                <option value="mi-km">Miles → Kilometres</option>
+                <option value="kg-lb">Kilograms → Pounds</option>
+                <option value="lb-kg">Pounds → Kilograms</option>
+                <option value="cm-in">Centimetres → Inches</option>
+                <option value="in-cm">Inches → Centimetres</option>
+                <option value="c-f">Celsius → Fahrenheit</option>
+                <option value="f-c">Fahrenheit → Celsius</option>
+                <option value="mb-gb">Megabytes → Gigabytes</option>
+                <option value="gb-mb">Gigabytes → Megabytes</option>
+            </select>
+
+            <button class="primary" onclick="convertUnit()">Convert</button>
+            <div class="output" id="unitResult">Result appears here.</div>
+        </div>
+    </div>
+
+
+    <!-- WORD COUNTER VIEW -->
+    <div class="tool-view" id="view-wordcounter">
+        <button class="btn back-button" onclick="backToTools()">← Back to Tools</button>
+
+        <div class="card">
+            <h2>🔤 Word Counter</h2>
+            <textarea id="wordText" placeholder="Type or paste your text..." oninput="countWords()"></textarea>
+            <div class="output" id="wordResult">Words: 0 | Characters: 0</div>
+        </div>
+    </div>
+
+
+    <!-- COLOR PICKER VIEW -->
+    <div class="tool-view" id="view-colorpicker">
+        <button class="btn back-button" onclick="backToTools()">← Back to Tools</button>
+
+        <div class="card">
+            <h2>🎨 Colour Picker</h2>
+            <input type="color" id="colorPicker" value="#8B5CF6" oninput="updateColor()">
+            <div class="color-box" id="colorBox" style="background:#8B5CF6"></div>
+            <div class="output" id="colorCode">#8B5CF6</div>
+            <button class="btn" onclick="copyText('colorCode')">Copy Colour Code</button>
+        </div>
+    </div>
+
+
+    <!-- PASSWORD VIEW -->
+    <div class="tool-view" id="view-password">
+        <button class="btn back-button" onclick="backToTools()">← Back to Tools</button>
+
+        <div class="card">
+            <h2>🔐 Password Generator</h2>
+            <label>Password length</label>
+            <input type="number" id="passLength" value="16" min="8" max="64">
+            <button class="primary" onclick="generatePassword()">Generate</button>
+            <div class="output" id="passwordResult">Your password appears here.</div>
+            <button class="btn" onclick="copyText('passwordResult')">Copy</button>
+            <p class="muted">Generated locally in your browser. Use a password manager for important accounts.</p>
+        </div>
+    </div>
+
+
+    <!-- CALENDAR VIEW -->
+    <div class="tool-view" id="view-calendar">
+        <button class="btn back-button" onclick="backToTools()">← Back to Tools</button>
+
+        <div class="card">
+            <h2>📅 Calendar</h2>
+            <div class="big-time" id="calendarMonth" style="font-size:22px"></div>
+            <div class="output" id="calendarDisplay"></div>
+            <div class="row">
+                <button class="btn" onclick="changeMonth(-1)">Previous</button>
+                <button class="btn" onclick="changeMonth(1)">Next</button>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+<!-- DEVELOPER -->
+<section id="developer" class="page-section">
+
+    <h1>💻 Developer Zone</h1>
+    <p class="subtitle">Your personal coding playground.</p>
+
+    <div class="card" id="editor">
+        <h3>⚡ Live HTML Playground</h3>
+        <p>Write HTML and see your result in the preview below.</p>
+
+        <label>HTML Code</label>
+        <textarea id="htmlEditor" style="min-height:180px"><h1>Hello NEXUS!</h1>
+<p>My first experiment in the NEXUS Developer Zone.</p>
+<button onclick="alert('Hello!')">Click Me</button></textarea>
+
+        <button class="primary" onclick="runCode()">Run Preview</button>
+        <button class="btn" onclick="resetCode()">Reset Code</button>
+
+        <h3 class="section-title">Live Preview</h3>
+        <iframe id="codePreview" sandbox="allow-scripts"></iframe>
+    </div>
+
+    <div class="grid" style="margin-top:16px">
+
+        <div class="card">
+            <h3>🧹 JSON Formatter</h3>
+            <textarea id="jsonInput" placeholder='{"name":"NEXUS","version":2}'></textarea>
+            <button class="primary" onclick="formatJSON()">Format JSON</button>
+            <div class="output"><pre id="jsonOutput"></pre></div>
+        </div>
+
+        <div class="card">
+            <h3>🖥 Browser Information</h3>
+            <div class="output" id="browserInfo"></div>
+            <button class="btn" onclick="showBrowserInfo()">Refresh Information</button>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- PRODUCTIVITY -->
+<section id="productivity" class="page-section">
+
+    <h1>📚 Productivity Zone</h1>
+    <p class="subtitle">Plan your day. Track your progress.</p>
+
+    <div class="grid">
+
+        <div class="card" id="tasks">
+            <h3>✅ To-do List</h3>
+            <input id="taskInput" placeholder="What needs to be done?">
+            <button class="primary" onclick="addTask()">Add Task</button>
+            <div id="taskList"></div>
+        </div>
+
+        <div class="card" id="notes">
+            <h3>📝 Notes Manager</h3>
+            <input id="noteTitle" placeholder="Note title">
+            <textarea id="noteContent" placeholder="Write your note..."></textarea>
+            <button class="primary" onclick="saveNote()">Save Note</button>
+            <div id="notesList"></div>
+        </div>
+
+        <div class="card">
+            <h3>🍅 Pomodoro Focus Timer</h3>
+            <p>Work for 25 minutes, then take a break.</p>
+            <div class="big-time" id="pomodoroDisplay">25:00</div>
+            <div class="row">
+                <button class="primary" onclick="startPomodoro()">Start</button>
+                <button class="btn" onclick="pausePomodoro()">Pause</button>
+                <button class="danger" onclick="resetPomodoro()">Reset</button>
+            </div>
+            <p id="pomodoroStatus" class="muted">Focus session ready.</p>
+        </div>
+
+        <div class="card">
+            <h3>📖 Study Timetable</h3>
+            <input id="studySubject" placeholder="Subject">
+            <input id="studyTime" type="time">
+            <button class="primary" onclick="addStudy()">Add Study Session</button>
+            <div id="studyList"></div>
+        </div>
+
+        <div class="card">
+            <h3>⭐ Habit Tracker</h3>
+            <input id="habitInput" placeholder="Habit name">
+            <button class="primary" onclick="addHabit()">Add Habit</button>
+            <div id="habitList"></div>
+        </div>
+
+        <div class="card">
+            <h3>📔 Personal Diary</h3>
+            <input type="date" id="diaryDate">
+            <textarea id="diaryText" placeholder="Write about your day..."></textarea>
+            <button class="primary" onclick="saveDiary()">Save Diary Entry</button>
+            <div id="diaryStatus" class="muted"></div>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- GAMING -->
+<section id="gaming" class="page-section">
+
+    <h1>🎮 Gaming Zone</h1>
+    <p class="subtitle">Your personal gaming library.</p>
+
+    <div class="arcade-shell" id="nexusArcade">
+        <div class="arcade-top">
+            <div>
+                <span class="arcade-badge">NEXUS ARCADE · EMULATORJS</span>
+                <h2 class="purple" style="margin:12px 0 5px">🕹️ Game Boy / Game Boy Advance</h2>
+                <p style="margin:0">Play a game from a ROM file already on your device. Powered by EmulatorJS using its official stable engine. Supports GBA, GB and GBC files.</p>
+            </div>
+            <div class="arcade-actions">
+                <button class="btn" id="arcadeFullscreen" disabled>⛶ Fullscreen</button>
+                <button class="danger" id="arcadeStop" disabled>Stop Game</button>
+            </div>
+        </div>
+
+        <label for="arcadeRom">Choose a game file (.gba, .gb or .gbc)</label>
+        <input class="arcade-file" type="file" id="arcadeRom" accept=".gba,.gb,.gbc">
+        <div class="arcade-actions">
+            <button class="primary" id="arcadeStart">▶ Load Game</button>
+            <span class="arcade-small">Your ROM is read locally in your browser; NEXUS does not upload it.</span>
+        </div>
+
+        <div class="arcade-stage" id="arcadeStage">
+            <div class="arcade-placeholder" id="arcadePlaceholder">
+                <div style="font-size:42px;margin-bottom:8px">🎮</div>
+                <strong>Ready when you are.</strong><br>
+                Select a compatible game file, then press <b>Load Game</b>.
+            </div>
+        </div>
+
+        <div class="arcade-controlbar">
+            <button class="btn arcade-fastforward" type="button" id="arcadeFastForward" disabled aria-pressed="false">⏩ Hold Fast-forward</button>
+            <span class="arcade-small">Press and hold to speed up gameplay; release to return to normal speed. Keyboard shortcut: <b>Shift</b>.</span>
+        </div>
+
+        <div class="arcade-status" id="arcadeStatus" role="status" aria-live="polite">Engine not loaded. It downloads from the official EmulatorJS CDN only when you press “Load Game”.</div>
+
+        <h3 style="margin:16px 0 8px">⌨️ Game Controls</h3>
+        <div class="arcade-keys">
+            <span><b>Move</b> — Arrow keys</span>
+            <span><b>A button</b> — Z</span>
+            <span><b>B button</b> — X</span>
+            <span><b>L / R</b> — Q / E</span>
+            <span><b>Start</b> — Enter</span>
+            <span><b>Select</b> — V</span>
+            <span><b>Fast-forward</b> — Hold Shift</span>
+            <span><b>Gamepad</b> — Connect before starting; remap in Controller Settings</span>
+        </div>
+        <p class="arcade-small" style="margin:12px 0 0"><b>Save / Load:</b> Use the emulator toolbar's <b>Save State</b> and <b>Load State</b> buttons. Quick Save / Quick Load are also enabled. In-game battery saves are stored in this browser. Do not clear browser site data if you want to keep them. You can also export/import save files from the emulator toolbar. No ROMs or BIOS files are included.</p>
+    </div>
+
+    <div class="card">
+        <h3>➕ Add a Game</h3>
+
+        <div class="row">
+            <input id="gameName" placeholder="Game name">
+            <input id="gamePlatform" placeholder="Platform">
+        </div>
+
+        <div class="row">
+            <select id="gameStatus">
+                <option>Want to Play</option>
+                <option>Playing</option>
+                <option>Completed</option>
+            </select>
+            <button class="primary" onclick="addGame()">Add to Library</button>
+        </div>
+    </div>
+
+    <h2 class="section-title">Your Game Collection</h2>
+    <div class="grid" id="gameLibrary"></div>
+</section>
+
+
+<!-- ABOUT -->
+<section id="about" class="page-section">
+
+    <h1>🌌 About NEXUS</h1>
+    <p class="subtitle">Your Digital Universe.</p>
+
+    <div class="card">
+        <h2 class="purple">One Dashboard. Many Possibilities.</h2>
+        <p>
+            NEXUS is a personal digital command centre designed to bring
+            useful tools, productivity features, coding experiments and
+            gaming information into one place.
+        </p>
+        <p>
+            It is built using HTML, CSS and JavaScript, without requiring
+            a heavy framework.
+        </p>
+        <h3>Project Information</h3>
+        <p>Project: NEXUS</p>
+        <p>Version: 2.0</p>
+        <p>Technology: HTML + CSS + JavaScript</p>
+        <p>Design: Black and Neon Purple</p>
+        <p>Storage: Browser Local Storage</p>
+        <p class="green">Built to grow. Built to explore.</p>
+    </div>
+</section>
+
+
+<!-- SETTINGS -->
+<section id="settings" class="page-section">
+
+    <h1>⚙️ NEXUS Settings</h1>
+    <p class="subtitle">Customize your digital universe.</p>
+
+    <div class="grid">
+
+        <div class="card">
+            <h3>🎨 Appearance</h3>
+            <label>Choose accent colour</label>
+            <input type="color" id="themeColor" value="#8B5CF6" onchange="changeTheme()">
+
+            <label>Display density</label>
+            <select id="density" onchange="changeDensity()">
+                <option value="normal">Normal</option>
+                <option value="compact">Compact</option>
+            </select>
+        </div>
+
+        <div class="card">
+            <h3>💾 Data Management</h3>
+            <p>Download a backup of your NEXUS data.</p>
+            <button class="primary" onclick="exportData()">Export Backup</button>
+
+            <p>Restore a previously exported backup.</p>
+            <input type="file" id="importFile" accept=".json">
+            <button class="btn" onclick="importData()">Import Backup</button>
+        </div>
+
+        <div class="card">
+            <h3>🧹 Reset NEXUS</h3>
+            <p>Clear all locally saved NEXUS information.</p>
+            <button class="danger" onclick="clearAllData()">Clear All Data</button>
+        </div>
+
+    </div>
+
+    <div class="card" style="margin-top:16px">
+        <h3>About Local Storage</h3>
+        <p>
+            Notes, tasks, games and settings are stored in this browser
+            on this device. They are not automatically synchronized
+            with other devices or backed up online.
+        </p>
+        <p>Export a backup before clearing browser data or moving to another computer.</p>
+    </div>
+</section>
+
+</main>
+
+<footer>
+    NEXUS. — Your Digital Universe<br>
+    <span class="muted">Explore • Create • Organize • Play</span>
+</footer>
+
+
+<script>
+
+/* NAVIGATION */
+
+function showPage(page) {
+    document.querySelectorAll(".page-section").forEach(section => {
+        section.classList.remove("active");
+    });
+
+    const target = document.getElementById(page);
+    if (!target) return;
+
+    target.classList.add("active");
+
+    document.querySelectorAll("nav button").forEach(button => {
+        button.classList.toggle("active",button.dataset.page===page);
+    });
+
+    if (page==="tools") backToTools();
+
+    window.scrollTo({top:0,behavior:"smooth"});
+}
+
+document.querySelectorAll("[data-page]").forEach(button => {
+    button.addEventListener("click",() => showPage(button.dataset.page));
+});
+
+
+/* NEW TOOL NAVIGATION */
+
+function openNexusTool(name) {
+    document.getElementById("toolLauncher").style.display = "none";
+
+    document.querySelectorAll(".tool-view").forEach(view => {
+        view.classList.remove("active");
+    });
+
+    const selected = document.getElementById("view-"+name);
+
+    if (selected) {
+        selected.classList.add("active");
+    }
+}
+
+function backToTools() {
+    document.getElementById("toolLauncher").style.display = "block";
+
+    document.querySelectorAll(".tool-view").forEach(view => {
+        view.classList.remove("active");
+    });
+
+    window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function launchTool(name) {
+    showPage("tools");
+    openNexusTool(name);
+}
+
+
+/* CLOCK */
+
+function updateClock() {
+    const now = new Date();
+
+    document.getElementById("clock").textContent =
+        now.toLocaleTimeString();
+
+    document.getElementById("date").textContent =
+        now.toLocaleDateString(undefined,{
+            weekday:"long",
+            year:"numeric",
+            month:"long",
+            day:"numeric"
+        });
+
+    const hour = now.getHours();
+
+    document.getElementById("greeting").textContent =
+        hour<12 ? "Good morning. Ready to explore?" :
+        hour<17 ? "Good afternoon. Let's get productive." :
+        "Good evening. Welcome back to NEXUS.";
+}
+
+setInterval(updateClock,1000);
+updateClock();
+
+
+/* STORAGE */
+
+function getData(key,fallback=[]) {
+    try {
+        return JSON.parse(localStorage.getItem("nexus_"+key)) ?? fallback;
+    } catch {
+        return fallback;
+    }
+}
+
+function saveData(key,value) {
+    localStorage.setItem("nexus_"+key,JSON.stringify(value));
+}
+
+function updateStats() {
+    const notes = getData("notes");
+    const tasks = getData("tasks");
+    const games = getData("games");
+
+    document.getElementById("noteCount").textContent = notes.length;
+    document.getElementById("taskCount").textContent =
+        tasks.filter(task=>!task.done).length;
+    document.getElementById("gameCount").textContent = games.length;
+}
+
+
+/* CALCULATOR */
+
+let calcExpression = "0";
+
+function showCalc() {
+    document.getElementById("calcDisplay").value = calcExpression;
+}
+
+function calcAdd(value) {
+    if (calcExpression==="0" || calcExpression==="Error") {
+        calcExpression=value;
+    } else {
+        calcExpression+=value;
+    }
+    showCalc();
+}
+
+function calcClear() {
+    calcExpression="0";
+    showCalc();
+}
+
+function calcDelete() {
+    calcExpression=calcExpression.slice(0,-1)||"0";
+    showCalc();
+}
+
+function calculate() {
+    try {
+        if (!/^[0-9+\-*/%.() ]+$/.test(calcExpression)) throw Error();
+
+        const result = Function('"use strict";return ('+calcExpression+')')();
+
+        if (!Number.isFinite(result)) throw Error();
+
+        calcExpression=String(Number(result.toPrecision(12)));
+    } catch {
+        calcExpression="Error";
+    }
+
+    showCalc();
+}
+
+document.addEventListener("keydown",event => {
+    if (!document.getElementById("view-calculator").classList.contains("active")) return;
+
+    if (event.target.tagName==="INPUT" || event.target.tagName==="TEXTAREA") return;
+
+    if (/^[0-9.+\-*/%()]$/.test(event.key)) calcAdd(event.key);
+    else if (event.key==="Enter" || event.key==="=") calculate();
+    else if (event.key==="Backspace") calcDelete();
+    else if (event.key==="Escape") calcClear();
+});
+
+
+/* STOPWATCH */
+
+let stopwatchStart=0;
+let stopwatchElapsed=0;
+let stopwatchInterval=null;
+
+function formatStopwatch(ms) {
+    const minutes=Math.floor(ms/60000);
+    const seconds=Math.floor((ms%60000)/1000);
+    const centiseconds=Math.floor((ms%1000)/10);
+
+    return String(minutes).padStart(2,"0")+":"+
+        String(seconds).padStart(2,"0")+"."+
+        String(centiseconds).padStart(2,"0");
+}
+
+function updateStopwatch() {
+    document.getElementById("stopwatchDisplay").textContent =
+        formatStopwatch(stopwatchElapsed+Date.now()-stopwatchStart);
+}
+
+function startStopwatch() {
+    if (stopwatchInterval) return;
+
+    stopwatchStart=Date.now();
+    stopwatchInterval=setInterval(updateStopwatch,50);
+}
+
+function pauseStopwatch() {
+    if (!stopwatchInterval) return;
+
+    stopwatchElapsed+=Date.now()-stopwatchStart;
+    clearInterval(stopwatchInterval);
+    stopwatchInterval=null;
+    updateStopwatch();
+}
+
+function resetStopwatch() {
+    clearInterval(stopwatchInterval);
+    stopwatchInterval=null;
+    stopwatchElapsed=0;
+    document.getElementById("stopwatchDisplay").textContent="00:00.00";
+}
+
+
+/* COUNTDOWN TIMER */
+
+let timerRemaining=0;
+let timerInterval=null;
+
+function updateTimerDisplay() {
+    const minutes=Math.floor(timerRemaining/60);
+    const seconds=timerRemaining%60;
+
+    document.getElementById("timerDisplay").textContent =
+        String(minutes).padStart(2,"0")+":"+
+        String(seconds).padStart(2,"0");
+}
+
+function startTimer() {
+    if (timerInterval) return;
+
+    if (timerRemaining<=0) {
+        timerRemaining=
+            Math.max(0,Number(document.getElementById("timerMinutes").value)||0)*60+
+            Math.max(0,Number(document.getElementById("timerSeconds").value)||0);
+    }
+
+    if (timerRemaining<=0) return;
+
+    document.getElementById("timerStatus").textContent="Timer running.";
+
+    timerInterval=setInterval(() => {
+        timerRemaining--;
+        updateTimerDisplay();
+
+        if (timerRemaining<=0) {
+            clearInterval(timerInterval);
+            timerInterval=null;
+            document.getElementById("timerStatus").textContent="Time is up!";
+            alert("NEXUS Timer: Time is up!");
+        }
+    },1000);
+}
+
+function resetTimer() {
+    clearInterval(timerInterval);
+    timerInterval=null;
+    timerRemaining=0;
+    updateTimerDisplay();
+    document.getElementById("timerStatus").textContent="Ready.";
+}
+
+
+/* UNIT CONVERTER */
+
+function convertUnit() {
+    const value=Number(document.getElementById("unitValue").value);
+    const type=document.getElementById("unitType").value;
+
+    if (!Number.isFinite(value) || document.getElementById("unitValue").value==="") {
+        document.getElementById("unitResult").textContent="Enter a valid number.";
+        return;
+    }
+
+    const conversions={
+        "km-mi":value*0.621371,
+        "mi-km":value/0.621371,
+        "kg-lb":value*2.20462,
+        "lb-kg":value/2.20462,
+        "cm-in":value/2.54,
+        "in-cm":value*2.54,
+        "c-f":(value*9/5)+32,
+        "f-c":(value-32)*5/9,
+        "mb-gb":value/1024,
+        "gb-mb":value*1024
+    };
+
+    document.getElementById("unitResult").textContent =
+        conversions[type].toLocaleString(undefined,{maximumFractionDigits:6});
+}
+
+
+/* WORD COUNTER */
+
+function countWords() {
+    const text=document.getElementById("wordText").value.trim();
+    const words=text?text.split(/\s+/).length:0;
+
+    document.getElementById("wordResult").textContent =
+        "Words: "+words+" | Characters: "+
+        document.getElementById("wordText").value.length;
+}
+
+
+/* COLOUR PICKER */
+
+function updateColor() {
+    const color=document.getElementById("colorPicker").value;
+    document.getElementById("colorBox").style.background=color;
+    document.getElementById("colorCode").textContent=color.toUpperCase();
+}
+
+function copyText(id) {
+    const text=document.getElementById(id).textContent;
+
+    if (!navigator.clipboard) {
+        alert("Clipboard access is unavailable in this preview.");
+        return;
+    }
+
+    navigator.clipboard.writeText(text)
+        .then(()=>alert("Copied!"))
+        .catch(()=>alert("Clipboard access is unavailable."));
+}
+
+
+/* PASSWORD GENERATOR */
+
+function generatePassword() {
+    const length=Math.min(64,Math.max(8,
+        Number(document.getElementById("passLength").value)||16));
+
+    const chars=
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*_-+=";
+
+    let password="";
+
+    if (window.crypto && crypto.getRandomValues) {
+        const random=new Uint32Array(length);
+        crypto.getRandomValues(random);
+
+        for (let i=0;i<length;i++) {
+            password+=chars[random[i]%chars.length];
+        }
+    } else {
+        for (let i=0;i<length;i++) {
+            password+=chars[Math.floor(Math.random()*chars.length)];
+        }
+    }
+
+    document.getElementById("passwordResult").textContent=password;
+}
+
+
+/* CALENDAR */
+
+let calendarDate=new Date();
+
+function renderCalendar() {
+    const year=calendarDate.getFullYear();
+    const month=calendarDate.getMonth();
+
+    document.getElementById("calendarMonth").textContent =
+        calendarDate.toLocaleDateString(undefined,{month:"long",year:"numeric"});
+
+    const first=new Date(year,month,1).getDay();
+    const days=new Date(year,month+1,0).getDate();
+
+    let html="<div style='display:grid;grid-template-columns:repeat(7,1fr);gap:5px;text-align:center'>";
+
+    ["S","M","T","W","T","F","S"].forEach(day=>{
+        html+="<strong>"+day+"</strong>";
+    });
+
+    for(let i=0;i<first;i++) html+="<span></span>";
+
+    for(let day=1;day<=days;day++) {
+        const today=new Date();
+        const isToday=day===today.getDate() &&
+            month===today.getMonth() && year===today.getFullYear();
+
+        html+="<span style='padding:7px;border-radius:6px;"+
+            (isToday?"background:#8B5CF6;color:white":"")+
+            "'>"+day+"</span>";
+    }
+
+    html+="</div>";
+    document.getElementById("calendarDisplay").innerHTML=html;
+}
+
+function changeMonth(amount) {
+    calendarDate.setMonth(calendarDate.getMonth()+amount);
+    renderCalendar();
+}
+
+renderCalendar();
+
+
+/* DEVELOPER PLAYGROUND */
+
+const defaultCode=`<h1>Hello NEXUS!</h1>
+<p>My first experiment in the NEXUS Developer Zone.</p>
+<button onclick="alert('Hello!')">Click Me</button>`;
+
+function runCode() {
+    const code=document.getElementById("htmlEditor").value;
+    document.getElementById("codePreview").srcdoc=code;
+}
+
+function resetCode() {
+    document.getElementById("htmlEditor").value=defaultCode;
+    runCode();
+}
+
+runCode();
+
+
+/* JSON FORMATTER */
+
+function formatJSON() {
+    const input=document.getElementById("jsonInput").value;
+
+    try {
+        const parsed=JSON.parse(input);
+        document.getElementById("jsonOutput").textContent=
+            JSON.stringify(parsed,null,4);
+    } catch {
+        document.getElementById("jsonOutput").textContent=
+            "Invalid JSON. Check your brackets, commas and quotation marks.";
+    }
+}
+
+
+/* BROWSER INFORMATION */
+
+function showBrowserInfo() {
+    document.getElementById("browserInfo").textContent=
+        "Browser: "+navigator.userAgent+
+        "\nLanguage: "+navigator.language+
+        "\nPlatform: "+navigator.platform+
+        "\nScreen: "+screen.width+" × "+screen.height+
+        "\nOnline: "+(navigator.onLine?"Yes":"No");
+}
+
+showBrowserInfo();
+
+
+/* TASK MANAGER */
+
+function renderTasks() {
+    const tasks=getData("tasks");
+    const list=document.getElementById("taskList");
+
+    list.innerHTML="";
+
+    tasks.forEach((task,index)=>{
+        const item=document.createElement("div");
+        item.className="list-item";
+
+        const text=document.createElement("span");
+        text.textContent=task.text;
+        if(task.done) text.className="done";
+
+        const actions=document.createElement("div");
+        actions.className="row";
+
+        const doneButton=document.createElement("button");
+        doneButton.className="btn small";
+        doneButton.textContent=task.done?"Undo":"Done";
+        doneButton.onclick=()=>toggleTask(index);
+
+        const deleteButton=document.createElement("button");
+        deleteButton.className="danger small";
+        deleteButton.textContent="Delete";
+        deleteButton.onclick=()=>deleteTask(index);
+
+        actions.append(doneButton,deleteButton);
+        item.append(text,actions);
+        list.append(item);
+    });
+
+    updateStats();
+}
+
+function addTask() {
+    const input=document.getElementById("taskInput");
+    const text=input.value.trim();
+
+    if(!text) return;
+
+    const tasks=getData("tasks");
+    tasks.push({text,done:false});
+    saveData("tasks",tasks);
+
+    input.value="";
+    renderTasks();
+}
+
+function toggleTask(index) {
+    const tasks=getData("tasks");
+    tasks[index].done=!tasks[index].done;
+    saveData("tasks",tasks);
+    renderTasks();
+}
+
+function deleteTask(index) {
+    const tasks=getData("tasks");
+    tasks.splice(index,1);
+    saveData("tasks",tasks);
+    renderTasks();
+}
+
+
+/* NOTES MANAGER */
+
+function renderNotes() {
+    const notes=getData("notes");
+    const list=document.getElementById("notesList");
+
+    list.innerHTML="";
+
+    notes.forEach((note,index)=>{
+        const item=document.createElement("div");
+        item.className="list-item";
+
+        const info=document.createElement("div");
+        const title=document.createElement("strong");
+        title.textContent=note.title;
+
+        const content=document.createElement("p");
+        content.textContent=note.content;
+
+        info.append(title,content);
+
+        const remove=document.createElement("button");
+        remove.className="danger small";
+        remove.textContent="Delete";
+        remove.onclick=()=>deleteNote(index);
+
+        item.append(info,remove);
+        list.append(item);
+    });
+
+    updateStats();
+}
+
+function saveNote() {
+    const titleInput=document.getElementById("noteTitle");
+    const contentInput=document.getElementById("noteContent");
+
+    const title=titleInput.value.trim();
+    const content=contentInput.value.trim();
+
+    if(!title || !content) {
+        alert("Enter a title and note.");
+        return;
+    }
+
+    const notes=getData("notes");
+    notes.unshift({title,content,date:new Date().toISOString()});
+    saveData("notes",notes);
+
+    titleInput.value="";
+    contentInput.value="";
+    renderNotes();
+}
+
+function deleteNote(index) {
+    const notes=getData("notes");
+    notes.splice(index,1);
+    saveData("notes",notes);
+    renderNotes();
+}
+
+
+/* POMODORO */
+
+let pomodoroSeconds=1500;
+let pomodoroInterval=null;
+
+function updatePomodoro() {
+    const minutes=Math.floor(pomodoroSeconds/60);
+    const seconds=pomodoroSeconds%60;
+
+    document.getElementById("pomodoroDisplay").textContent=
+        String(minutes).padStart(2,"0")+":"+
+        String(seconds).padStart(2,"0");
+}
+
+function startPomodoro() {
+    if(pomodoroInterval) return;
+
+    pomodoroInterval=setInterval(()=>{
+        pomodoroSeconds--;
+        updatePomodoro();
+
+        if(pomodoroSeconds<=0) {
+            clearInterval(pomodoroInterval);
+            pomodoroInterval=null;
+            document.getElementById("pomodoroStatus").textContent=
+                "Focus session complete. Time for a break!";
+            alert("NEXUS: Focus session complete!");
+        }
+    },1000);
+}
+
+function pausePomodoro() {
+    clearInterval(pomodoroInterval);
+    pomodoroInterval=null;
+}
+
+function resetPomodoro() {
+    pausePomodoro();
+    pomodoroSeconds=1500;
+    updatePomodoro();
+    document.getElementById("pomodoroStatus").textContent="Focus session ready.";
+}
+
+updatePomodoro();
+
+
+/* STUDY TIMETABLE */
+
+function renderStudy() {
+    const sessions=getData("study");
+    const list=document.getElementById("studyList");
+
+    list.innerHTML="";
+
+    sessions.forEach((session,index)=>{
+        const item=document.createElement("div");
+        item.className="list-item";
+
+        const text=document.createElement("span");
+        text.textContent=session.time+" — "+session.subject;
+
+        const remove=document.createElement("button");
+        remove.className="danger small";
+        remove.textContent="Delete";
+
+        remove.onclick=()=>{
+            sessions.splice(index,1);
+            saveData("study",sessions);
+            renderStudy();
+        };
+
+        item.append(text,remove);
+        list.append(item);
+    });
+}
+
+function addStudy() {
+    const subject=document.getElementById("studySubject").value.trim();
+    const time=document.getElementById("studyTime").value;
+
+    if(!subject || !time) return;
+
+    const sessions=getData("study");
+    sessions.push({subject,time});
+    sessions.sort((a,b)=>a.time.localeCompare(b.time));
+    saveData("study",sessions);
+
+    document.getElementById("studySubject").value="";
+    renderStudy();
+}
+
+
+/* HABIT TRACKER */
+
+function renderHabits() {
+    const habits=getData("habits");
+    const list=document.getElementById("habitList");
+
+    list.innerHTML="";
+
+    habits.forEach((habit,index)=>{
+        const item=document.createElement("div");
+        item.className="list-item";
+
+        const text=document.createElement("span");
+        text.textContent=habit.name+" — "+(habit.done?"Completed today":"Not completed");
+
+        const actions=document.createElement("div");
+        actions.className="row";
+
+        const done=document.createElement("button");
+        done.className="btn small";
+        done.textContent=habit.done?"Undo":"Done";
+
+        done.onclick=()=>{
+            habits[index].done=!habits[index].done;
+            saveData("habits",habits);
+            renderHabits();
+        };
+
+        const remove=document.createElement("button");
+        remove.className="danger small";
+        remove.textContent="Delete";
+
+        remove.onclick=()=>{
+            habits.splice(index,1);
+            saveData("habits",habits);
+            renderHabits();
+        };
+
+        actions.append(done,remove);
+        item.append(text,actions);
+        list.append(item);
+    });
+}
+
+function addHabit() {
+    const input=document.getElementById("habitInput");
+    const name=input.value.trim();
+
+    if(!name) return;
+
+    const habits=getData("habits");
+    habits.push({name,done:false});
+    saveData("habits",habits);
+
+    input.value="";
+    renderHabits();
+}
+
+
+/* DIARY */
+
+document.getElementById("diaryDate").value=
+    new Date().toISOString().slice(0,10);
+
+function saveDiary() {
+    const date=document.getElementById("diaryDate").value;
+    const text=document.getElementById("diaryText").value;
+
+    if(!date || !text.trim()) return;
+
+    const diary=getData("diary",{});
+    diary[date]=text;
+    saveData("diary",diary);
+
+    document.getElementById("diaryStatus").textContent=
+        "Diary entry saved for "+date+".";
+}
+
+document.getElementById("diaryDate").addEventListener("change",()=>{
+    const date=document.getElementById("diaryDate").value;
+    const diary=getData("diary",{});
+
+    document.getElementById("diaryText").value=diary[date]||"";
+    document.getElementById("diaryStatus").textContent="";
+});
+
+
+/* GAMING LIBRARY */
+
+function renderGames() {
+    const games=getData("games");
+    const library=document.getElementById("gameLibrary");
+
+    library.innerHTML="";
+
+    games.forEach((game,index)=>{
+        const card=document.createElement("div");
+        card.className="card";
+
+        const title=document.createElement("h3");
+        title.textContent="🎮 "+game.name;
+
+        const platform=document.createElement("p");
+        platform.textContent="Platform: "+game.platform;
+
+        const status=document.createElement("p");
+        status.textContent="Status: "+game.status;
+
+        const remove=document.createElement("button");
+        remove.className="danger";
+        remove.textContent="Remove";
+
+        remove.onclick=()=>{
+            games.splice(index,1);
+            saveData("games",games);
+            renderGames();
+        };
+
+        card.append(title,platform,status,remove);
+        library.append(card);
+    });
+
+    updateStats();
+}
+
+function addGame() {
+    const name=document.getElementById("gameName").value.trim();
+    const platform=document.getElementById("gamePlatform").value.trim()||"Not specified";
+    const status=document.getElementById("gameStatus").value;
+
+    if(!name) return;
+
+    const games=getData("games");
+    games.push({name,platform,status});
+    saveData("games",games);
+
+    document.getElementById("gameName").value="";
+    document.getElementById("gamePlatform").value="";
+
+    renderGames();
+}
+
+
+/* SETTINGS */
+
+function changeTheme() {
+    const color=document.getElementById("themeColor").value;
+    document.documentElement.style.setProperty("--purple",color);
+    document.documentElement.style.setProperty("--glow",color);
+    saveData("theme",color);
+}
+
+function changeDensity() {
+    const density=document.getElementById("density").value;
+    document.body.classList.toggle("compact",density==="compact");
+    saveData("density",density);
+}
+
+
+/* BACKUP AND RESTORE */
+
+const storageKeys=[
+    "tasks","notes","study","habits","diary","games","theme","density"
+];
+
+function exportData() {
+    const backup={};
+
+    storageKeys.forEach(key=>{
+        backup[key]=getData(key,key==="diary"?{}:null);
+    });
+
+    const blob=new Blob(
+        [JSON.stringify(backup,null,2)],
+        {type:"application/json"}
+    );
+
+    const url=URL.createObjectURL(blob);
+    const link=document.createElement("a");
+
+    link.href=url;
+    link.download="NEXUS-backup.json";
+    link.click();
+
+    URL.revokeObjectURL(url);
+}
+
+function importData() {
+    const file=document.getElementById("importFile").files[0];
+
+    if(!file) {
+        alert("Choose a backup file first.");
+        return;
+    }
+
+    const reader=new FileReader();
+
+    reader.onload=()=>{
+        try {
+            const backup=JSON.parse(reader.result);
+
+            storageKeys.forEach(key=>{
+                if(Object.prototype.hasOwnProperty.call(backup,key)) {
+                    saveData(key,backup[key]);
+                }
+            });
+
+            alert("Backup imported successfully!");
+            location.reload();
+        } catch {
+            alert("That backup file could not be read.");
+        }
+    };
+
+    reader.readAsText(file);
+}
+
+function clearAllData() {
+    if(!confirm("This will delete all NEXUS data saved in this browser. Continue?")) return;
+
+    storageKeys.forEach(key=>localStorage.removeItem("nexus_"+key));
+    location.reload();
+}
+
+
+/* LOAD SAVED SETTINGS AND DATA */
+
+function loadSettings() {
+    const theme=getData("theme",null);
+    const density=getData("density","normal");
+
+    if(theme) {
+        document.getElementById("themeColor").value=theme;
+        document.documentElement.style.setProperty("--purple",theme);
+        document.documentElement.style.setProperty("--glow",theme);
+    }
+
+    document.getElementById("density").value=density;
+    document.body.classList.toggle("compact",density==="compact");
+}
+
+loadSettings();
+renderTasks();
+renderNotes();
+renderStudy();
+renderHabits();
+renderGames();
+updateStats();
+
+
+
+/* NEXUS ARCADE — EmulatorJS stable integration.
+   Official SPA guidance: run EmulatorJS in an iframe to protect NEXUS navigation/DOM. */
+(() => {
+    const DATA_PATH = 'https://cdn.emulatorjs.org/stable/data/';
+    const statusEl = document.getElementById('arcadeStatus');
+    const stage = document.getElementById('arcadeStage');
+    const romInput = document.getElementById('arcadeRom');
+    const startButton = document.getElementById('arcadeStart');
+    const stopButton = document.getElementById('arcadeStop');
+    const fullscreenButton = document.getElementById('arcadeFullscreen');
+    const fastForwardButton = document.getElementById('arcadeFastForward');
+    if (!statusEl || !stage || !romInput || !startButton) return;
+
+    let gameFrame = null;
+    let romObjectUrl = null;
+    let loadToken = 0;
+    let startupTimer = null;
+
+    function setStatus(message, kind='') {
+        statusEl.textContent = message;
+        statusEl.className = 'arcade-status' + (kind ? ' ' + kind : '');
+    }
+
+    function clearStartupTimer() {
+        if (startupTimer) clearTimeout(startupTimer);
+        startupTimer = null;
+    }
+
+    function stopGame(showMessage=true) {
+        releaseFastForward();
+        loadToken++;
+        clearStartupTimer();
+        if (gameFrame) {
+            gameFrame.remove();
+            gameFrame = null;
+        }
+        if (romObjectUrl) {
+            URL.revokeObjectURL(romObjectUrl);
+            romObjectUrl = null;
+        }
+        stopButton.disabled = true;
+        fullscreenButton.disabled = true;
+        if (fastForwardButton) fastForwardButton.disabled = true;
+        if (showMessage) {
+            stage.innerHTML = '<div class="arcade-placeholder"><div style="font-size:42px;margin-bottom:8px">🎮</div><strong>Game stopped.</strong><br>Choose another game whenever you are ready.</div>';
+            setStatus('Game stopped. Your browser save data is kept separately.', 'good');
+        }
+    }
+
+    function buildEmulatorFrame(file, core, token) {
+        const frame = document.createElement('iframe');
+        frame.title = 'NEXUS Game Emulator';
+        frame.allow = 'autoplay; fullscreen; gamepad';
+        frame.setAttribute('allowfullscreen', '');
+        frame.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-pointer-lock allow-downloads');
+        frame.style.cssText = 'display:block;width:100%;height:min(70vh,620px);min-height:420px;border:0;border-radius:8px;background:#000';
+
+        const romUrl = romObjectUrl;
+        const config = `
+            window.EJS_player = '#game';
+            window.EJS_core = ${JSON.stringify(core)};
+            window.EJS_gameUrl = ${JSON.stringify(romUrl)};
+            window.EJS_gameName = ${JSON.stringify(file.name.replace(/\.[^.]+$/, ''))};
+            window.EJS_pathtodata = ${JSON.stringify(DATA_PATH)};
+            window.EJS_biosUrl = '';
+            window.EJS_color = '#8B5CF6';
+            window.EJS_startOnLoaded = true;
+            window.EJS_controlScheme = ${JSON.stringify(core === 'gba' ? 'gba' : 'gb')};
+            window.EJS_defaultControls = {
+                0: {
+                    0:{value:'x'}, 1:{value:'s'}, 2:{value:'v'}, 3:{value:'enter'},
+                    4:{value:'up arrow'}, 5:{value:'down arrow'}, 6:{value:'left arrow'}, 7:{value:'right arrow'},
+                    8:{value:'z'}, 9:{value:'a'}, 10:{value:'q'}, 11:{value:'e'},
+                    12:{value:'tab'}, 13:{value:'r'}, 24:{value:'1'}, 25:{value:'2'},
+                    26:{value:'3'}, 27:{value:'shift'}, 28:{value:'space'}, 29:{value:'subtract'}
+                }, 1:{}, 2:{}, 3:{}
+            };
+            window.EJS_defaultOptions = {'save-state-location':'browser'};
+            window.EJS_Buttons = {
+                saveState:true, loadState:true, saveSavFiles:true, loadSavFiles:true,
+                quickSave:true, quickLoad:true, fullscreen:true, settings:true
+            };
+            window.EJS_ready = function() {
+                try { parent.postMessage({type:'nexus-emulator-ready'}, '*'); } catch (_) {}
+            };
+            window.addEventListener('error', function(event) {
+                const message = event.message || (event.target && (event.target.src || event.target.href)) || 'Emulator script/resource error';
+                try { parent.postMessage({type:'nexus-emulator-error', message:String(message)}, '*'); } catch (_) {}
+            }, true);
+            window.addEventListener('unhandledrejection', function(event) {
+                const reason = event.reason && event.reason.message ? event.reason.message : String(event.reason || 'Emulator startup failed');
+                try { parent.postMessage({type:'nexus-emulator-error', message:reason}, '*'); } catch (_) {}
+            });
+        `;
+        const page = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NEXUS Emulator</title><style>html,body{margin:0;width:100%;height:100%;background:#000;color:#ddd;font:14px system-ui;overflow:hidden}#game{width:100%;height:100%;min-height:420px;display:flex;align-items:center;justify-content:center}#hint{position:absolute;left:12px;right:12px;bottom:8px;text-align:center;color:#aaa;font-size:12px;pointer-events:none}</style></head><body><div id="game"></div><div id="hint">Loading EmulatorJS stable engine…</div><script>${config}<\/script><script>const loader=document.createElement('script');loader.src=${JSON.stringify(DATA_PATH + 'loader.js')};loader.onload=()=>{try{parent.postMessage({type:'nexus-emulator-loader-loaded'},'*')}catch(_){}};loader.onerror=()=>{try{parent.postMessage({type:'nexus-emulator-loader-error',message:'The official EmulatorJS loader could not be downloaded. Check that the CDN is reachable.'},'*')}catch(_){}};document.body.appendChild(loader);<\/script></body></html>`;
+
+        frame.srcdoc = page;
+        frame.addEventListener('load', () => {
+            if (token !== loadToken) return;
+            setStatus('Emulator frame is ready. Downloading the official engine and starting the game…', '');
+        });
+        stage.replaceChildren(frame);
+        gameFrame = frame;
+        stopButton.disabled = false;
+        fullscreenButton.disabled = false;
+        if (fastForwardButton) fastForwardButton.disabled = true;
+        startupTimer = setTimeout(() => {
+            if (token === loadToken && gameFrame === frame) {
+                setStatus('The emulator has not confirmed startup yet. If the screen stays black, check the internet/CDN connection and browser console.', 'bad');
+            }
+        }, 45000);
+    }
+
+    let fastForwardHeld = false;
+    function sendFastForwardKey(type) {
+        if (!gameFrame || !gameFrame.contentWindow) return;
+        try {
+            const win = gameFrame.contentWindow;
+            const event = new win.KeyboardEvent(type, {
+                key: 'Shift', code: 'ShiftLeft', keyCode: 16, which: 16,
+                bubbles: true, cancelable: true
+            });
+            win.document.dispatchEvent(event);
+        } catch (error) {
+            console.warn('NEXUS fast-forward key could not be sent:', error);
+        }
+    }
+    function setFastForward(pressed) {
+        if (!gameFrame || !fastForwardButton || fastForwardHeld === pressed) return;
+        fastForwardHeld = pressed;
+        sendFastForwardKey(pressed ? 'keydown' : 'keyup');
+        fastForwardButton.setAttribute('aria-pressed', String(pressed));
+        fastForwardButton.textContent = pressed ? '⏩ Fast-forward ON — release to stop' : '⏩ Hold Fast-forward';
+    }
+    function releaseFastForward() {
+        if (fastForwardHeld) {
+            sendFastForwardKey('keyup');
+            fastForwardHeld = false;
+        }
+        if (fastForwardButton) {
+            fastForwardButton.setAttribute('aria-pressed', 'false');
+            fastForwardButton.textContent = '⏩ Hold Fast-forward';
+        }
+    }
+
+    async function startGame() {
+        const file = romInput.files && romInput.files[0];
+        if (!file) {
+            setStatus('Choose a .gba, .gb or .gbc game file first.', 'bad');
+            return;
+        }
+        const ext = (file.name.split('.').pop() || '').toLowerCase();
+        if (!['gba', 'gb', 'gbc'].includes(ext)) {
+            setStatus('Unsupported file. Choose a .gba, .gb or .gbc file.', 'bad');
+            return;
+        }
+        if (!window.isSecureContext && location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
+            setStatus('Open NEXUS through localhost or an HTTPS website to use the emulator.', 'bad');
+            return;
+        }
+        startButton.disabled = true;
+        stopGame(false);
+        const token = ++loadToken;
+        stage.innerHTML = '<div class="arcade-placeholder">Preparing your game…</div>';
+        setStatus('Preparing ' + file.name + '…', '');
+        try {
+            romObjectUrl = URL.createObjectURL(file);
+            const core = ext === 'gba' ? 'gba' : 'gb';
+            buildEmulatorFrame(file, core, token);
+            setStatus('Starting ' + file.name + ' with EmulatorJS (' + (core === 'gba' ? 'Game Boy Advance' : 'Game Boy / Game Boy Color') + '). The official stable engine must download on first launch.', 'good');
+        } catch (error) {
+            console.error('NEXUS EmulatorJS error:', error);
+            stopGame(false);
+            stage.innerHTML = '<div class="arcade-placeholder"><strong>Could not create the emulator.</strong></div>';
+            setStatus('Emulator setup error: ' + (error.message || String(error)), 'bad');
+        } finally {
+            startButton.disabled = false;
+        }
+    }
+
+    window.addEventListener('message', event => {
+        if (!gameFrame || event.source !== gameFrame.contentWindow || !event.data) return;
+        if (event.data.type === 'nexus-emulator-loader-loaded') {
+            setStatus('EmulatorJS loader downloaded. Waiting for the GBA core and game to initialize…', 'good');
+        } else if (event.data.type === 'nexus-emulator-ready') {
+            clearStartupTimer();
+            if (fastForwardButton) fastForwardButton.disabled = false;
+            setStatus('Game is ready. Save State, Load State and Fast-forward are available below/in the emulator toolbar.', 'good');
+        } else if (event.data.type === 'nexus-emulator-loader-error') {
+            clearStartupTimer();
+            setStatus(event.data.message, 'bad');
+        } else if (event.data.type === 'nexus-emulator-error') {
+            clearStartupTimer();
+            setStatus('Emulator error: ' + event.data.message, 'bad');
+        }
+    });
+
+    startButton.addEventListener('click', startGame);
+    stopButton.addEventListener('click', () => stopGame(true));
+    if (fastForwardButton) {
+        fastForwardButton.addEventListener('pointerdown', event => {
+            if (fastForwardButton.disabled) return;
+            event.preventDefault();
+            if (fastForwardButton.setPointerCapture) fastForwardButton.setPointerCapture(event.pointerId);
+            setFastForward(true);
+        });
+        ['pointerup','pointercancel','lostpointercapture','pointerleave'].forEach(type => {
+            fastForwardButton.addEventListener(type, releaseFastForward);
+        });
+        fastForwardButton.addEventListener('contextmenu', event => event.preventDefault());
+    }
+    window.addEventListener('blur', releaseFastForward);
+    fullscreenButton.addEventListener('click', async () => {
+        try {
+            if (gameFrame && gameFrame.requestFullscreen) await gameFrame.requestFullscreen();
+            else setStatus('Fullscreen is not available in this browser.', 'bad');
+        } catch (error) {
+            setStatus('Could not enter fullscreen: ' + error.message, 'bad');
+        }
+    });
+    window.addEventListener('pagehide', () => stopGame(false));
+})();
+</script>
+
+</body>
+</html>
